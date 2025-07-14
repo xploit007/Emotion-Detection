@@ -39,14 +39,14 @@ if st.button("Predict Emotion"):
     with st.spinner("Analyzing…"):
         label = model.predict(text).lower()
     emoji = EMOJI.get(label, "")
-    
+
     # Styled result
     st.markdown(
         f"<h2 style='text-align:center;'>{emoji} Predicted emotion: "
         f"<span style='color:#4caf50;'>{label.capitalize()}</span></h2>",
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
-    
+
     # Bonus animation for different emotions
     if label == "joy":
         st.balloons()

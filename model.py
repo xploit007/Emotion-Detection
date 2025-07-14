@@ -12,6 +12,7 @@ _MODEL_PATH = os.path.join(os.path.dirname(__file__), "best_model.pkl")
 # --- In-memory cache ---
 _model = None
 
+
 def _train_and_serialize():
     """Run the training routine and load the resulting pipeline."""
     # train_model.py writes out ``best_model.pkl``
@@ -34,6 +35,7 @@ def _load_artifacts():
 
     if _model is None:
         _model = joblib.load(_MODEL_PATH)
+
 
 def predict(text: str) -> str:
     """Predict the emotion label for the given text."""
