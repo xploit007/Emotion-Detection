@@ -5,3 +5,4 @@ __pycache__/
 # explicitly include our trained artifacts
 !model.pkl
 !vectorizer.pkl
+!best_model.pkl

@@ -47,11 +47,16 @@ if st.button("Predict Emotion"):
         unsafe_allow_html=True,
     )
 
-    # Bonus animation for different emotions
+    # Emotion‐specific messages
     if label == "joy":
-        st.balloons()
+        st.success("😂 That's wonderful! Keep the joy going!")
     elif label == "sadness":
-        st.snow()
+        st.warning("😢 It's okay to feel sad. Take care of yourself.")
     elif label == "anger":
-        st.error("😡 Take a deep breath!")
-    # you can add more animations or messages for other labels
+        st.error("😡 Take a deep breath and let it out slowly.")
+    elif label == "fear":
+        st.warning("😨 Stay strong, you’ve got this.")
+    elif label == "surprise":
+        st.info("😲 Wow, that’s surprising!")
+    elif label == "love":
+        st.info("😍 Love is a beautiful emotion, spread it around!")
