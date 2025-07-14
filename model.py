@@ -21,15 +21,16 @@ def _train_and_serialize():
     model = joblib.load(_MODEL_PATH)
     return model
 
+
 def _load_artifacts():
-    """Load (or if missing, train+load) the model pipeline."""
+    """Load the model pipeline. Raise if artifacts are missing."""
     global _model
 
     if not os.path.exists(_MODEL_PATH):
-        # train_model.py prints metrics and dumps ``best_model.pkl``
-        print("Artifacts not found. Training model now…")
-        _model = _train_and_serialize()
-        return
+        raise FileNotFoundError(
+            "Model artifact 'best_model.pkl' not found. "
+            "Run 'python train_model.py' to train and create it."
+        )
 
     if _model is None:
         _model = joblib.load(_MODEL_PATH)
