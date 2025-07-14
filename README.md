@@ -13,10 +13,14 @@ This project trains a Logistic Regression classifier to detect emotions in text 
    ```bash
    python -m spacy download en_core_web_sm
    ```
-3. Train the model (this creates `best_model.pkl`):
+3. **Train the model (this creates `best_model.pkl`):**
    ```bash
    python train_model.py
    ```
+
+   `model.predict()` will raise an error if this file is missing, so be sure
+   to run the training script before using the app or the library functions.
+
 4. Run the demo app:
    ```bash
    streamlit run app.py
