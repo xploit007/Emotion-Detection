@@ -13,7 +13,7 @@ This project trains a Logistic Regression classifier to detect emotions in text 
    ```bash
    python -m spacy download en_core_web_sm
    ```
-3. Train the model (this creates `model.pkl` and `vectorizer.pkl`):
+3. Train the model (this creates `best_model.pkl`):
    ```bash
    python train_model.py
    ```
