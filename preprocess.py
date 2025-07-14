@@ -10,5 +10,7 @@ def clean_text(text: str) -> str:
     text = re.sub(r"@\w+|#\w+", "", text)
     text = re.sub(r"[^a-z0-9\s]", " ", text)
     doc = nlp(text)
-    tokens = [token.lemma_ for token in doc if not token.is_stop and token.lemma_.isalnum()]
+    tokens = [
+        token.lemma_ for token in doc if not token.is_stop and token.lemma_.isalnum()
+    ]
     return " ".join(tokens)
