@@ -58,7 +58,7 @@ st.markdown(
 
 # --- Emoji map ---
 EMOJI = {
-    "joy": "😂",
+    "joy": "😁",
     "sadness": "😢",
     "anger": "😠",
     "fear": "😨",
