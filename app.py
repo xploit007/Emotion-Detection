@@ -123,7 +123,7 @@ if st.button("🔍 Predict Emotion"):
 
         # --- Emotion-specific Messages ---
         if label == "joy":
-            st.success("😂 That's wonderful! Keep the joy going!")
+            st.success("😁 That's wonderful! Keep the joy going!")
         elif label == "sadness":
             st.warning("😢 It's okay to feel sad. Take care of yourself.")
         elif label == "anger":
