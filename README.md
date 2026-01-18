@@ -27,3 +27,5 @@ This project trains a Logistic Regression classifier to detect emotions in text 
    ```
 
 The training data is provided in `text_emotions.csv`.
+
+Demo : https://xploit-emotion-detection.streamlit.app
