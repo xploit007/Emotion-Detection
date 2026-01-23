@@ -1,8 +1,34 @@
+# Model files (downloaded from HuggingFace Hub at runtime)
+models/
 *.pkl
+*.bin
+*.safetensors
+
+# Data files (too large for git)
+data/
+
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+
+# Jupyter
 .ipynb_checkpoints/
 
-# explicitly include our trained artifacts
-!model.pkl
-!vectorizer.pkl
-!best_model.pkl
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude
+.claude/
+
+# Temp
+nul
+*.log
