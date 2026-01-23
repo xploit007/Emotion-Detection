@@ -315,27 +315,42 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- Example Buttons ---
-st.markdown('<p class="examples-title">✨ Try these examples:</p>', unsafe_allow_html=True)
-example_cols = st.columns(4)
+# --- Initialize session state ---
+if "example_text" not in st.session_state:
+    st.session_state.example_text = ""
+
+# --- Example Buttons for All 7 Emotions ---
+st.markdown('<p class="examples-title">✨ Click an example to try it:</p>', unsafe_allow_html=True)
+
+# All 7 emotions with example sentences
 examples = [
-    ("😊 Happy", "I just got promoted at work and I'm so excited!"),
-    ("😢 Sad", "I miss my best friend who moved away last year"),
-    ("😠 Angry", "I can't believe they cancelled my flight without notice!"),
+    ("😁 Joy", "I just got promoted at work and I'm so incredibly happy!"),
+    ("😢 Sadness", "I feel so alone and miss the good old days"),
+    ("😠 Anger", "I can't believe they lied to me! This is unacceptable!"),
+    ("😨 Fear", "I'm terrified about the exam results tomorrow"),
+    ("😍 Love", "You mean the world to me, I love you so much!"),
+    ("😲 Surprise", "Oh my god! I never expected this to happen!"),
     ("😐 Neutral", "The meeting is scheduled for 3 PM tomorrow"),
 ]
 
-selected_example = None
-for i, (label, text) in enumerate(examples):
-    with example_cols[i]:
-        if st.button(label, key=f"example_{i}", use_container_width=True):
-            selected_example = text
+# Create two rows: 4 buttons on first row, 3 on second
+row1_cols = st.columns(4)
+row2_cols = st.columns([1, 1, 1, 1])
+
+for i, (label, example_text) in enumerate(examples):
+    if i < 4:
+        with row1_cols[i]:
+            if st.button(label, key=f"example_{i}", use_container_width=True):
+                st.session_state.example_text = example_text
+    else:
+        with row2_cols[i - 4]:
+            if st.button(label, key=f"example_{i}", use_container_width=True):
+                st.session_state.example_text = example_text
 
 # --- Text Input ---
-default_text = selected_example if selected_example else ""
 text = st.text_area(
     "Enter your text to analyze:",
-    value=default_text,
+    value=st.session_state.example_text,
     height=120,
     placeholder="Type or paste any text here to detect its emotional tone...",
     key="text_input"
@@ -345,12 +360,10 @@ text = st.text_area(
 analyze_clicked = st.button("🔍 Analyze Emotion", use_container_width=True)
 
 # --- Process and Display Results ---
-if analyze_clicked or selected_example:
-    input_text = text if text.strip() else selected_example
-
-    if input_text and input_text.strip():
+if analyze_clicked:
+    if text and text.strip():
         with st.spinner("🧠 Analyzing emotional patterns..."):
-            label, confidence_scores = model.predict_with_confidence(input_text)
+            label, confidence_scores = model.predict_with_confidence(text)
 
         emotion_config = EMOTIONS_CONFIG.get(label, EMOTIONS_CONFIG["neutral"])
 
