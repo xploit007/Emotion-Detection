@@ -46,7 +46,7 @@ st.markdown("""
         padding: 2.5rem 2rem;
         border-radius: 20px;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
 
@@ -70,57 +70,19 @@ st.markdown("""
         margin-top: 0.5rem;
     }
 
-    /* Stats Cards */
-    .stats-container {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .stat-card {
-        flex: 1;
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
-        padding: 1.2rem;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    .stat-value {
-        font-size: 1.8rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .stat-label {
-        font-size: 0.85rem;
-        color: rgba(255,255,255,0.6);
-        margin-top: 0.3rem;
-    }
-
-    /* Input Section */
-    .input-section {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 20px;
-        padding: 1.5rem;
+    /* Note Box */
+    .note-box {
+        background: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.3);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
         margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
     }
 
-    .input-label {
-        font-size: 1rem;
-        font-weight: 500;
-        color: rgba(255,255,255,0.8);
-        margin-bottom: 0.8rem;
+    .note-box strong {
+        color: #FFC107;
     }
 
     /* Text Area */
@@ -255,13 +217,9 @@ st.markdown("""
     }
 
     /* Example Buttons */
-    .examples-container {
-        margin-bottom: 1.5rem;
-    }
-
     .examples-title {
         font-size: 0.9rem;
-        color: rgba(255,255,255,0.5);
+        color: rgba(255,255,255,0.6);
         margin-bottom: 0.8rem;
     }
 
@@ -293,31 +251,17 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- Stats Cards ---
+# --- Note Box ---
 st.markdown("""
-<div class="stats-container">
-    <div class="stat-card">
-        <div class="stat-value">93.5%</div>
-        <div class="stat-label">Accuracy</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">91.1%</div>
-        <div class="stat-label">F1 Score</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">7</div>
-        <div class="stat-label">Emotions</div>
-    </div>
-    <div class="stat-card">
-        <div class="stat-value">~50ms</div>
-        <div class="stat-label">Response</div>
-    </div>
+<div class="note-box">
+    <strong>⚠️ Note:</strong> This AI model has an F1 score of 0.91. It may occasionally make mistakes,
+    especially with sarcasm, mixed emotions, or ambiguous text. Use it for fun and learning!
 </div>
 """, unsafe_allow_html=True)
 
 # --- Initialize session state ---
-if "example_text" not in st.session_state:
-    st.session_state.example_text = ""
+if "input_text" not in st.session_state:
+    st.session_state.input_text = ""
 
 # --- Example Buttons for All 7 Emotions ---
 st.markdown('<p class="examples-title">✨ Click an example to try it:</p>', unsafe_allow_html=True)
@@ -341,20 +285,25 @@ for i, (label, example_text) in enumerate(examples):
     if i < 4:
         with row1_cols[i]:
             if st.button(label, key=f"example_{i}", use_container_width=True):
-                st.session_state.example_text = example_text
+                st.session_state.input_text = example_text
+                st.rerun()
     else:
         with row2_cols[i - 4]:
             if st.button(label, key=f"example_{i}", use_container_width=True):
-                st.session_state.example_text = example_text
+                st.session_state.input_text = example_text
+                st.rerun()
 
 # --- Text Input ---
 text = st.text_area(
     "Enter your text to analyze:",
-    value=st.session_state.example_text,
+    value=st.session_state.input_text,
     height=120,
     placeholder="Type or paste any text here to detect its emotional tone...",
-    key="text_input"
 )
+
+# Update session state when user types
+if text != st.session_state.input_text:
+    st.session_state.input_text = text
 
 # --- Analyze Button ---
 analyze_clicked = st.button("🔍 Analyze Emotion", use_container_width=True)
