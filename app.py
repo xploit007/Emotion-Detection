@@ -272,8 +272,8 @@ examples = [
     ("😢 Sadness", "I feel so alone and miss the good old days"),
     ("😠 Anger", "I can't believe they lied to me! This is unacceptable!"),
     ("😨 Fear", "I'm terrified about the exam results tomorrow"),
-    ("😍 Love", "You mean the world to me, I love you so much!"),
-    ("😲 Surprise", "Oh my god! I never expected this to happen!"),
+    ("😍 Love", "I am deeply in love"),
+    ("😲 Surprise", "I am shocked by this news"),
     ("😐 Neutral", "The meeting is scheduled for 3 PM tomorrow"),
 ]
 
